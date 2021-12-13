@@ -29,202 +29,237 @@ CLASS lcl_alv_grid DEFINITION DEFERRED.
 
 CLASS lcl_report DEFINITION ABSTRACT FINAL CREATE PRIVATE.
   PUBLIC SECTION.
-    INTERFACES: zif_report.
+    INTERFACES: zif_git_report.
 ENDCLASS.
 
-CLASS lcl_alv_grid DEFINITION INHERITING FROM zcl_bc_alvgrid_template.
+CLASS lcl_alv_grid DEFINITION INHERITING FROM zcl_git_alvgrid_template.
   PUBLIC SECTION.
-    ALIASES: m_alv_grid FOR zif_report_alvgrid~m_alv_grid.
+    ALIASES: m_alv_grid FOR zif_git_report_alvgrid~m_alv_grid.
 
     METHODS constructor IMPORTING i_container_name TYPE char40 DEFAULT 'MY_CONTAINER' i_scree_alv TYPE sy-dynnr DEFAULT '9000'.
-    METHODS: zif_report_alvgrid~get_fieldcatalog REDEFINITION,
-      zif_report_alvgrid~on_user_command REDEFINITION,
-      zif_report_alvgrid~on_after_refresh REDEFINITION,
-      zif_report_alvgrid~on_after_user_command REDEFINITION,
-      zif_report_alvgrid~on_before_user_command REDEFINITION,
-      zif_report_alvgrid~on_button_click REDEFINITION,
-      zif_report_alvgrid~on_context_menu_request REDEFINITION,
-      zif_report_alvgrid~on_data_changed REDEFINITION,
-      zif_report_alvgrid~on_data_changed_finished REDEFINITION,
-      zif_report_alvgrid~on_delayed_callback REDEFINITION,
-      zif_report_alvgrid~on_double_click REDEFINITION,
-      zif_report_alvgrid~on_drop_external_files REDEFINITION,
-      zif_report_alvgrid~on_end_of_list REDEFINITION,
-      zif_report_alvgrid~on_hotspot_click REDEFINITION,
-      zif_report_alvgrid~on_left_click_design REDEFINITION,
-      zif_report_alvgrid~on_left_click_run REDEFINITION,
-      zif_report_alvgrid~on_menu_button REDEFINITION,
-      zif_report_alvgrid~on_move_control REDEFINITION,
-      zif_report_alvgrid~on_ondrag REDEFINITION,
-      zif_report_alvgrid~on_ondrop REDEFINITION,
-      zif_report_alvgrid~on_ondropcomplete REDEFINITION,
-      zif_report_alvgrid~on_ondropgetflavor REDEFINITION,
-      zif_report_alvgrid~on_onf1 REDEFINITION,
-      zif_report_alvgrid~on_onf4 REDEFINITION,
-      zif_report_alvgrid~on_print_end_of_list REDEFINITION,
-      zif_report_alvgrid~on_print_end_of_page REDEFINITION,
-      zif_report_alvgrid~on_print_top_of_list REDEFINITION,
-      zif_report_alvgrid~on_print_top_of_page REDEFINITION,
-      zif_report_alvgrid~on_right_click REDEFINITION,
-      zif_report_alvgrid~on_size_control REDEFINITION,
-      zif_report_alvgrid~on_subtotal_text REDEFINITION,
-      zif_report_alvgrid~on_toolbar REDEFINITION,
-      zif_report_alvgrid~on_top_of_page REDEFINITION,
-      zif_report_alvgrid~get_data_to_display REDEFINITION.
+*    METHODS: zif_report_alvgrid~on_after_refresh REDEFINITION,
+*             zif_report_alvgrid~on_after_user_command REDEFINITION,
+*             zif_report_alvgrid~on_before_user_command REDEFINITION,
+*             zif_report_alvgrid~on_button_click REDEFINITION,
+*             zif_report_alvgrid~on_context_menu_request REDEFINITION,
+*             zif_report_alvgrid~on_data_changed REDEFINITION,
+*             zif_report_alvgrid~on_data_changed_finished REDEFINITION,
+*             zif_report_alvgrid~on_delayed_callback REDEFINITION,
+*             zif_report_alvgrid~on_double_click REDEFINITION,
+*             zif_report_alvgrid~on_drop_external_files REDEFINITION,
+*             zif_report_alvgrid~on_end_of_list REDEFINITION,
+*             zif_report_alvgrid~on_hotspot_click REDEFINITION,
+*             zif_report_alvgrid~on_left_click_design REDEFINITION,
+*             zif_report_alvgrid~on_left_click_run REDEFINITION,
+*             zif_report_alvgrid~on_menu_button REDEFINITION,
+*             zif_report_alvgrid~on_move_control REDEFINITION,
+*             zif_report_alvgrid~on_ondrag REDEFINITION,
+*             zif_report_alvgrid~on_ondrop REDEFINITION,
+*             zif_report_alvgrid~on_ondropcomplete REDEFINITION,
+*             zif_report_alvgrid~on_ondropgetflavor REDEFINITION,
+*             zif_report_alvgrid~on_onf1 REDEFINITION,
+*             zif_report_alvgrid~on_onf4 REDEFINITION,
+*             zif_report_alvgrid~on_print_end_of_list REDEFINITION,
+*             zif_report_alvgrid~on_print_end_of_page REDEFINITION,
+*             zif_report_alvgrid~on_print_top_of_list REDEFINITION,
+*             zif_report_alvgrid~on_print_top_of_page REDEFINITION,
+*             zif_report_alvgrid~on_right_click REDEFINITION,
+*             zif_report_alvgrid~on_size_control REDEFINITION,
+*             zif_report_alvgrid~on_subtotal_text REDEFINITION,
+*             zif_report_alvgrid~on_toolbar REDEFINITION,
+*             zif_report_alvgrid~on_top_of_page REDEFINITION,
+*             zif_report_alvgrid~on_user_command REDEFINITION,
+*             zif_report_alvgrid~get_data_to_display REDEFINITION,
+*             zif_report_alvgrid~get_fieldcatalog REDEFINITION.
+    METHODS: zif_git_report_alvgrid~get_fieldcatalog REDEFINITION,
+      zif_git_report_alvgrid~on_user_command REDEFINITION,
+      zif_git_report_alvgrid~on_after_refresh REDEFINITION,
+      zif_git_report_alvgrid~on_after_user_command REDEFINITION,
+      zif_git_report_alvgrid~on_before_user_command REDEFINITION,
+      zif_git_report_alvgrid~on_button_click REDEFINITION,
+      zif_git_report_alvgrid~on_context_menu_request REDEFINITION,
+      zif_git_report_alvgrid~on_data_changed REDEFINITION,
+      zif_git_report_alvgrid~on_data_changed_finished REDEFINITION,
+      zif_git_report_alvgrid~on_delayed_callback REDEFINITION,
+      zif_git_report_alvgrid~on_double_click REDEFINITION,
+      zif_git_report_alvgrid~on_drop_external_files REDEFINITION,
+      zif_git_report_alvgrid~on_end_of_list REDEFINITION,
+      zif_git_report_alvgrid~on_hotspot_click REDEFINITION,
+      zif_git_report_alvgrid~on_left_click_design REDEFINITION,
+      zif_git_report_alvgrid~on_left_click_run REDEFINITION,
+      zif_git_report_alvgrid~on_menu_button REDEFINITION,
+      zif_git_report_alvgrid~on_move_control REDEFINITION,
+      zif_git_report_alvgrid~on_ondrag REDEFINITION,
+      zif_git_report_alvgrid~on_ondrop REDEFINITION,
+      zif_git_report_alvgrid~on_ondropcomplete REDEFINITION,
+      zif_git_report_alvgrid~on_ondropgetflavor REDEFINITION,
+      zif_git_report_alvgrid~on_onf1 REDEFINITION,
+      zif_git_report_alvgrid~on_onf4 REDEFINITION,
+      zif_git_report_alvgrid~on_print_end_of_list REDEFINITION,
+      zif_git_report_alvgrid~on_print_end_of_page REDEFINITION,
+      zif_git_report_alvgrid~on_print_top_of_list REDEFINITION,
+      zif_git_report_alvgrid~on_print_top_of_page REDEFINITION,
+      zif_git_report_alvgrid~on_right_click REDEFINITION,
+      zif_git_report_alvgrid~on_size_control REDEFINITION,
+      zif_git_report_alvgrid~on_subtotal_text REDEFINITION,
+      zif_git_report_alvgrid~on_toolbar REDEFINITION,
+      zif_git_report_alvgrid~on_top_of_page REDEFINITION,
+      zif_git_report_alvgrid~get_data_to_display REDEFINITION.
+
 ENDCLASS.
 
 CLASS lcl_report IMPLEMENTATION.
 
-  METHOD zif_report~initialization.
+  METHOD zif_git_report~initialization.
   ENDMETHOD.
-  METHOD zif_report~start_of_selection.
+  METHOD zif_git_report~start_of_selection.
   ENDMETHOD.
-  METHOD zif_report~end_of_selection.
+  METHOD zif_git_report~end_of_selection.
   ENDMETHOD.
-  METHOD zif_report~load_of_program.
+  METHOD zif_git_report~load_of_program.
   ENDMETHOD.
-  METHOD zif_report~at_selection_screen_output.
+  METHOD zif_git_report~at_selection_screen_output.
   ENDMETHOD.
-  METHOD zif_report~at_selection_screen.
+  METHOD zif_git_report~at_selection_screen.
   ENDMETHOD.
-  METHOD zif_report~at_selection_screen_on.
+  METHOD zif_git_report~at_selection_screen_on.
   ENDMETHOD.
-  METHOD zif_report~at_selection_screen_on_end_of.
+  METHOD zif_git_report~at_selection_screen_on_end_of.
   ENDMETHOD.
-  METHOD zif_report~atsel_scrn_on_help_request_for.
+  METHOD zif_git_report~atsel_scrn_on_help_request_for.
   ENDMETHOD.
-  METHOD zif_report~atsel_scr_on_value_request_for.
+  METHOD zif_git_report~atsel_scr_on_value_request_for.
   ENDMETHOD.
-  METHOD zif_report~at_selection_screen_on_block.
+  METHOD zif_git_report~at_selection_screen_on_block.
   ENDMETHOD.
-  METHOD zif_report~atsel_scr_on_radiobutton_group.
+  METHOD zif_git_report~atsel_scr_on_radiobutton_group.
   ENDMETHOD.
 ENDCLASS.
 
 
 
 CLASS lcl_alv_grid IMPLEMENTATION.
-  METHOD zif_report_alvgrid~on_user_command.
+  METHOD zif_git_report_alvgrid~on_user_command.
     BREAK-POINT.
     WRITE /: 'User Command', e_ucomm.
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_after_refresh.
+  METHOD zif_git_report_alvgrid~on_after_refresh.
 
   ENDMETHOD.
-  METHOD zif_report_alvgrid~on_after_user_command.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alvgrid~on_before_user_command.
+  METHOD zif_git_report_alvgrid~on_after_user_command.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_button_click.
+  METHOD zif_git_report_alvgrid~on_before_user_command.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alvgrid~on_button_click.
     BREAK-POINT.
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_context_menu_request.
+  METHOD zif_git_report_alvgrid~on_context_menu_request.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_data_changed.
+  METHOD zif_git_report_alvgrid~on_data_changed.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_data_changed_finished.
+  METHOD zif_git_report_alvgrid~on_data_changed_finished.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_delayed_callback.
+  METHOD zif_git_report_alvgrid~on_delayed_callback.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_double_click.
+  METHOD zif_git_report_alvgrid~on_double_click.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_drop_external_files.
+  METHOD zif_git_report_alvgrid~on_drop_external_files.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_end_of_list.
+  METHOD zif_git_report_alvgrid~on_end_of_list.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_hotspot_click.
+  METHOD zif_git_report_alvgrid~on_hotspot_click.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_left_click_design.
+  METHOD zif_git_report_alvgrid~on_left_click_design.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_left_click_run.
+  METHOD zif_git_report_alvgrid~on_left_click_run.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_menu_button.
+  METHOD zif_git_report_alvgrid~on_menu_button.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_move_control.
+  METHOD zif_git_report_alvgrid~on_move_control.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_ondrag.
+  METHOD zif_git_report_alvgrid~on_ondrag.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_ondrop.
+  METHOD zif_git_report_alvgrid~on_ondrop.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_ondropcomplete.
+  METHOD zif_git_report_alvgrid~on_ondropcomplete.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_ondropgetflavor.
+  METHOD zif_git_report_alvgrid~on_ondropgetflavor.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_onf1.
+  METHOD zif_git_report_alvgrid~on_onf1.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_onf4.
+  METHOD zif_git_report_alvgrid~on_onf4.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_print_end_of_list.
+  METHOD zif_git_report_alvgrid~on_print_end_of_list.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_print_end_of_page.
+  METHOD zif_git_report_alvgrid~on_print_end_of_page.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_print_top_of_list.
+  METHOD zif_git_report_alvgrid~on_print_top_of_list.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_print_top_of_page.
+  METHOD zif_git_report_alvgrid~on_print_top_of_page.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_right_click.
+  METHOD zif_git_report_alvgrid~on_right_click.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_size_control.
+  METHOD zif_git_report_alvgrid~on_size_control.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_subtotal_text.
+  METHOD zif_git_report_alvgrid~on_subtotal_text.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_toolbar.
+  METHOD zif_git_report_alvgrid~on_toolbar.
     DATA: ls_toolbar TYPE stb_button.
 *... Normal Button
     CLEAR      ls_toolbar.
@@ -238,20 +273,20 @@ CLASS lcl_alv_grid IMPLEMENTATION.
     APPEND ls_toolbar TO e_object->mt_toolbar.
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~on_top_of_page.
+  METHOD zif_git_report_alvgrid~on_top_of_page.
 
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~get_data_to_display.
+  METHOD zif_git_report_alvgrid~get_data_to_display.
 
-    SELECT vbeln, posnr
-    FROM vbap
-    INTO CORRESPONDING FIELDS OF TABLE @ct_table_data
-      "lt_output
-    " @DATA(lt_data)
-    UP TO 100 ROWS.
-    " get reference table
-    GET REFERENCE OF ct_table_data INTO zif_report_alvgrid~m_output_table.
+*    SELECT vbeln, posnr
+*    FROM vbap
+*    INTO CORRESPONDING FIELDS OF TABLE @ct_table_data
+*      "lt_output
+*    " @DATA(lt_data)
+*    UP TO 100 ROWS.
+*    " get reference table
+*    GET REFERENCE OF ct_table_data INTO zif_git_report_alvgrid~m_output_table.
 
   ENDMETHOD.
 
@@ -262,34 +297,34 @@ CLASS lcl_alv_grid IMPLEMENTATION.
 
     "EVENTS to register!
     "to Handel ALV event register
-    SET HANDLER me->zif_report_alvgrid~on_user_command
+    SET HANDLER me->zif_git_report_alvgrid~on_user_command
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_before_user_command
+    SET HANDLER me->zif_git_report_alvgrid~on_before_user_command
                 FOR   m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_after_user_command
+    SET HANDLER me->zif_git_report_alvgrid~on_after_user_command
                 FOR m_alv_grid.
     "toolbar menu
-    SET HANDLER me->zif_report_alvgrid~on_toolbar
+    SET HANDLER me->zif_git_report_alvgrid~on_toolbar
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_double_click
+    SET HANDLER me->zif_git_report_alvgrid~on_double_click
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_hotspot_click
+    SET HANDLER me->zif_git_report_alvgrid~on_hotspot_click
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_button_click
+    SET HANDLER me->zif_git_report_alvgrid~on_button_click
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_onf1
+    SET HANDLER me->zif_git_report_alvgrid~on_onf1
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_onf4
+    SET HANDLER me->zif_git_report_alvgrid~on_onf4
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_menu_button
+    SET HANDLER me->zif_git_report_alvgrid~on_menu_button
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_data_changed
+    SET HANDLER me->zif_git_report_alvgrid~on_data_changed
                 FOR m_alv_grid.
-    SET HANDLER me->zif_report_alvgrid~on_data_changed_finished
+    SET HANDLER me->zif_git_report_alvgrid~on_data_changed_finished
                FOR m_alv_grid.
   ENDMETHOD.
 
-  METHOD zif_report_alvgrid~get_fieldcatalog.
+  METHOD zif_git_report_alvgrid~get_fieldcatalog.
 
 *    DATA:
 *      l_columns      TYPE REF TO cl_salv_columns_table,
@@ -298,7 +333,7 @@ CLASS lcl_alv_grid IMPLEMENTATION.
     FIELD-SYMBOLS:
       <l_table>         TYPE STANDARD TABLE.
 
-    ASSIGN zif_report_alvgrid~m_output_table->* TO <l_table> .
+    ASSIGN zif_git_report_alvgrid~m_output_table->* TO <l_table> .
 *...New ALV Instance ...............................................
     TRY.
         cl_salv_table=>factory(
@@ -324,39 +359,39 @@ CLASS lcl_alv_grid IMPLEMENTATION.
 ENDCLASS.
 
 INITIALIZATION.
-  lcl_report=>zif_report~initialization( ).
+  lcl_report=>zif_git_report~initialization( ).
 
 AT SELECTION-SCREEN OUTPUT.
-  lcl_report=>zif_report~at_selection_screen_output( ).
+  lcl_report=>zif_git_report~at_selection_screen_output( ).
 
 AT SELECTION-SCREEN.
-  lcl_report=>zif_report~at_selection_screen( ).
+  lcl_report=>zif_git_report~at_selection_screen( ).
 
 LOAD-OF-PROGRAM.
-  lcl_report=>zif_report~load_of_program( ).
+  lcl_report=>zif_git_report~load_of_program( ).
 
 *END-OF-SELECTION. Obsolete
-*  lcl_report=>zif_report~end_of_selection( ).
+*  lcl_report=>zif_git_report~end_of_selection( ).
 
 AT SELECTION-SCREEN ON p_test.
-  lcl_report=>zif_report~at_selection_screen_on( ).
+  lcl_report=>zif_git_report~at_selection_screen_on( ).
 
 *AT SELECTION-SCREEN ON END OF p_test.
-*   lcl_report=>zif_report~at_selection_screen_on_end_of( ).
+*   lcl_report=>zif_git_report~at_selection_screen_on_end_of( ).
 
 AT SELECTION-SCREEN ON HELP-REQUEST FOR p_test.
-  lcl_report=>zif_report~atsel_scrn_on_help_request_for( ).
+  lcl_report=>zif_git_report~atsel_scrn_on_help_request_for( ).
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR  p_test.
-  lcl_report=>zif_report~atsel_scr_on_value_request_for( ).
+  lcl_report=>zif_git_report~atsel_scr_on_value_request_for( ).
 
 *  AT SELECTION-SCREEN ON BLOCK
-*   lcl_report=>zif_report~at_selection_screen_on_block( ).
+*   lcl_report=>zif_git_report~at_selection_screen_on_block( ).
 *    AT SELECTION-SCREEN on RADIOBUTTON GROUP
-*   lcl_report=>zif_report~atsel_scr_on_radiobutton_group( ).
+*   lcl_report=>zif_git_report~atsel_scr_on_radiobutton_group( ).
 
 START-OF-SELECTION.
-  lcl_report=>zif_report~start_of_selection( ).
+  lcl_report=>zif_git_report~start_of_selection( ).
 
   DATA(lr_alvgrid) = NEW lcl_alv_grid(
 *      i_container_name = 'MY_CONTAINER'
@@ -368,47 +403,47 @@ START-OF-SELECTION.
 
 *  "EVENTS to register! done in constructor
 *  "to Handel ALV event register
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_user_command
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_before_user_command
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_after_user_command
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_user_command
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_before_user_command
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_after_user_command
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
 *  "toolbar menu
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_toolbar
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_toolbar
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
 *
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_double_click
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_hotspot_click
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_button_click
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_onf1
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_onf4
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_menu_button
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_data_changed
-*              FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
-*  SET HANDLER lr_alvgrid->zif_report_alvgrid~on_data_changed_finished
-*             FOR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_double_click
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_hotspot_click
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_button_click
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_onf1
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_onf4
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_menu_button
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_data_changed
+*              FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
+*  SET HANDLER lr_alvgrid->zif_git_report_alvgrid~on_data_changed_finished
+*             FOR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
 
   "the table shall be defined global in report so a correct referece to the table can be created
-  lr_alvgrid->zif_report_alvgrid~get_data_to_display(
+  lr_alvgrid->zif_git_report_alvgrid~get_data_to_display(
     CHANGING
       ct_table_data = lt_output ).
   " get field catalog (the table should be filled first)
-  lr_alvgrid->zif_report_alvgrid~get_fieldcatalog(
+  lr_alvgrid->zif_git_report_alvgrid~get_fieldcatalog(
      IMPORTING
        et_catalog = DATA(lt_fieldcatalog)
    ).
 
   FIELD-SYMBOLS : <table> TYPE ANY TABLE.
-  ASSIGN lr_alvgrid->zif_report_alvgrid~m_output_table->* TO <table> .
+  ASSIGN lr_alvgrid->zif_git_report_alvgrid~m_output_table->* TO <table> .
 
-  lr_alvgrid->zif_report_alvgrid~m_alv_grid->set_table_for_first_display(
+  lr_alvgrid->zif_git_report_alvgrid~m_alv_grid->set_table_for_first_display(
 *    EXPORTING
 *      i_buffer_active               =     " Buffering Active
 *      i_bypassing_buffer            =     " Switch Off Buffer
@@ -475,7 +510,7 @@ FORM user_command.
   CLEAR g_okcode.
 
   CASE l_okcode.
-    WHEN zif_report_alvgrid=>con_exit OR zif_report_alvgrid=>con_back OR zif_report_alvgrid=>con_canc.
+    WHEN zif_git_report_alvgrid=>con_exit OR zif_git_report_alvgrid=>con_back OR zif_git_report_alvgrid=>con_canc.
       g_okcode = l_okcode.
       PERFORM scr_9000_exit.
 
@@ -492,14 +527,14 @@ FORM scr_9000_exit.
   CLEAR g_okcode.
 
   CASE l_okcode.
-    WHEN zif_report_alvgrid=>con_exit OR zif_report_alvgrid=>con_back OR zif_report_alvgrid=>con_canc.
-      CALL METHOD lr_alvgrid->zif_report_alvgrid~m_alv_grid->free.
-      CALL METHOD lr_alvgrid->zif_report_alvgrid~m_alv_container->free.
+    WHEN zif_git_report_alvgrid=>con_exit OR zif_git_report_alvgrid=>con_back OR zif_git_report_alvgrid=>con_canc.
+      CALL METHOD lr_alvgrid->zif_git_report_alvgrid~m_alv_grid->free.
+      CALL METHOD lr_alvgrid->zif_git_report_alvgrid~m_alv_container->free.
 
       CALL METHOD cl_gui_cfw=>flush.
 
-      CLEAR lr_alvgrid->zif_report_alvgrid~m_alv_container.
-      CLEAR lr_alvgrid->zif_report_alvgrid~m_alv_grid.
+      CLEAR lr_alvgrid->zif_git_report_alvgrid~m_alv_container.
+      CLEAR lr_alvgrid->zif_git_report_alvgrid~m_alv_grid.
 *      CLEAR gr_events_d0100.
 
       SET SCREEN 0.

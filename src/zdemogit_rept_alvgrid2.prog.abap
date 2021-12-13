@@ -15,7 +15,7 @@ CLASS lcl_alv_grid DEFINITION DEFERRED.
 
 CLASS lcl_report DEFINITION   FINAL CREATE PRIVATE.
   PUBLIC SECTION.
-    INTERFACES: zif_report_v2. ", zif_report_alvgrid.
+    INTERFACES: zif_git_report_v2. ", zif_report_alvgrid.
 
     CLASS-DATA instance TYPE REF TO lcl_report.
     CLASS-METHODS class_constructor.
@@ -25,7 +25,7 @@ CLASS lcl_report DEFINITION   FINAL CREATE PRIVATE.
     DATA alv TYPE REF TO lcl_alv_grid.
 ENDCLASS.
 
-CLASS lcl_alv_grid DEFINITION INHERITING FROM zcl_bc_alvgrid_template.
+CLASS lcl_alv_grid DEFINITION INHERITING FROM zcl_git_alvgrid_template.
   PUBLIC SECTION.
     METHODS: zif_report_alvgrid~on_user_command REDEFINITION,
       zif_report_alvgrid~on_after_refresh REDEFINITION,
@@ -67,40 +67,40 @@ CLASS lcl_report IMPLEMENTATION.
   METHOD class_constructor.
     CREATE OBJECT instance.
   ENDMETHOD.
-  METHOD zif_report_v2~initialization.
+  METHOD zif_git_report_v2~initialization.
     IF alv IS INITIAL.
       CREATE OBJECT alv.
     ENDIF.
     GET REFERENCE OF lt_output INTO alv->zif_report_alvgrid~m_output_table.
 
   ENDMETHOD.
-  METHOD zif_report_v2~start_of_selection.
+  METHOD zif_git_report_v2~start_of_selection.
     alv->zif_report_alvgrid~get_data_to_display(
       CHANGING
         ct_table_data = lt_output
     ).
   ENDMETHOD.
-  METHOD zif_report_v2~end_of_selection.
+  METHOD zif_git_report_v2~end_of_selection.
     execute( ).
   ENDMETHOD.
 
-  METHOD zif_report_v2~load_of_program.
+  METHOD zif_git_report_v2~load_of_program.
   ENDMETHOD.
-  METHOD zif_report_v2~at_selection_screen_output.
+  METHOD zif_git_report_v2~at_selection_screen_output.
   ENDMETHOD.
-  METHOD zif_report_v2~at_selection_screen.
+  METHOD zif_git_report_v2~at_selection_screen.
   ENDMETHOD.
-  METHOD zif_report_v2~at_selection_screen_on.
+  METHOD zif_git_report_v2~at_selection_screen_on.
   ENDMETHOD.
-  METHOD zif_report_v2~at_selection_screen_on_end_of.
+  METHOD zif_git_report_v2~at_selection_screen_on_end_of.
   ENDMETHOD.
-  METHOD zif_report_v2~atsel_scrn_on_help_request_for.
+  METHOD zif_git_report_v2~atsel_scrn_on_help_request_for.
   ENDMETHOD.
-  METHOD zif_report_v2~atsel_scr_on_value_request_for.
+  METHOD zif_git_report_v2~atsel_scr_on_value_request_for.
   ENDMETHOD.
-  METHOD zif_report_v2~at_selection_screen_on_block.
+  METHOD zif_git_report_v2~at_selection_screen_on_block.
   ENDMETHOD.
-  METHOD zif_report_v2~atsel_scr_on_radiobutton_group.
+  METHOD zif_git_report_v2~atsel_scr_on_radiobutton_group.
   ENDMETHOD.
 
 *  METHOD zif_report_alvgrid~on_after_refresh.
@@ -518,36 +518,36 @@ CLASS lcl_alv_grid IMPLEMENTATION.
 ENDCLASS.
 
 INITIALIZATION.
-  lcl_report=>instance->zif_report_v2~initialization( ).
+  lcl_report=>instance->zif_git_report_v2~initialization( ).
 
 AT SELECTION-SCREEN OUTPUT.
-  lcl_report=>instance->zif_report_v2~at_selection_screen_output( ).
+  lcl_report=>instance->zif_git_report_v2~at_selection_screen_output( ).
 
 AT SELECTION-SCREEN.
-  lcl_report=>instance->zif_report_v2~at_selection_screen( ).
+  lcl_report=>instance->zif_git_report_v2~at_selection_screen( ).
 
 LOAD-OF-PROGRAM.
-  lcl_report=>instance->zif_report_v2~load_of_program( ).
+  lcl_report=>instance->zif_git_report_v2~load_of_program( ).
 
 START-OF-SELECTION.
-  lcl_report=>instance->zif_report_v2~start_of_selection( ).
+  lcl_report=>instance->zif_git_report_v2~start_of_selection( ).
 
 END-OF-SELECTION.
-  lcl_report=>instance->zif_report_v2~end_of_selection( ).
+  lcl_report=>instance->zif_git_report_v2~end_of_selection( ).
 
 AT SELECTION-SCREEN ON p_test.
-  lcl_report=>instance->zif_report_v2~at_selection_screen_on( ).
+  lcl_report=>instance->zif_git_report_v2~at_selection_screen_on( ).
 
 *AT SELECTION-SCREEN ON END OF p_test.
-*   lcl_report=>instance->zif_report_v2~at_selection_screen_on_end_of( ).
+*   lcl_report=>instance->zif_git_report_v2~at_selection_screen_on_end_of( ).
 
 AT SELECTION-SCREEN ON HELP-REQUEST FOR p_test.
-  lcl_report=>instance->zif_report_v2~atsel_scrn_on_help_request_for( ).
+  lcl_report=>instance->zif_git_report_v2~atsel_scrn_on_help_request_for( ).
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR  p_test.
-  lcl_report=>instance->zif_report_v2~atsel_scr_on_value_request_for( ).
+  lcl_report=>instance->zif_git_report_v2~atsel_scr_on_value_request_for( ).
 
 *  AT SELECTION-SCREEN ON BLOCK
-*   lcl_report=>instance->zif_report_v2~at_selection_screen_on_block( ).
+*   lcl_report=>instance->zif_git_report_v2~at_selection_screen_on_block( ).
 *    AT SELECTION-SCREEN on RADIOBUTTON GROUP
-*   lcl_report=>instance->zif_report_v2~atsel_scr_on_radiobutton_group( ).
+*   lcl_report=>instance->zif_git_report_v2~atsel_scr_on_radiobutton_group( ).

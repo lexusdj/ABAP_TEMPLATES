@@ -5,7 +5,7 @@ class ZCL_GIT_ALVGRID_TEMPLATE definition
 
 public section.
 
-  interfaces ZIF_REPORT_ALVGRID
+  interfaces ZIF_GIT_REPORT_ALVGRID
       all methods abstract .
 
   methods CONSTRUCTOR
@@ -23,9 +23,9 @@ CLASS ZCL_GIT_ALVGRID_TEMPLATE IMPLEMENTATION.
 
   METHOD CONSTRUCTOR.
 
-    IF  me->zif_report_alvgrid~m_alv_grid IS INITIAL.
-      IF me->zif_report_alvgrid~m_alv_container IS INITIAL.
-        CREATE OBJECT me->zif_report_alvgrid~m_alv_container
+    IF  me->ZIF_GIT_REPORT_ALVGRID~m_alv_grid IS INITIAL.
+      IF me->ZIF_GIT_REPORT_ALVGRID~m_alv_container IS INITIAL.
+        CREATE OBJECT me->ZIF_GIT_REPORT_ALVGRID~m_alv_container
           EXPORTING
 *           parent                      =     " Parent container
             container_name              = i_container_name  " Name of the Screen CustCtrl Name to Link Container To
@@ -46,11 +46,11 @@ CLASS ZCL_GIT_ALVGRID_TEMPLATE IMPLEMENTATION.
                      WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
         ENDIF.
       ENDIF.
-      CREATE OBJECT me->zif_report_alvgrid~m_alv_grid
+      CREATE OBJECT me->ZIF_GIT_REPORT_ALVGRID~m_alv_grid
         EXPORTING
 *         i_shellstyle      = 0    " Control Style
 *         i_lifetime        =     " Lifetime
-          i_parent          = me->zif_report_alvgrid~m_alv_container    " Parent Container
+          i_parent          = me->ZIF_GIT_REPORT_ALVGRID~m_alv_container    " Parent Container
 *         i_appl_events     = SPACE    " Register Events as Application Events
 *         i_parentdbg       =     " Internal, Do not Use
 *         i_applogparent    =     " Container for Application Log
@@ -70,7 +70,7 @@ CLASS ZCL_GIT_ALVGRID_TEMPLATE IMPLEMENTATION.
     ENDIF.
 
     "create object list for messages
-    CREATE OBJECT zif_report_alvgrid~m_message_list.
+    CREATE OBJECT ZIF_GIT_REPORT_ALVGRID~m_message_list.
 
   ENDMETHOD.
 ENDCLASS.

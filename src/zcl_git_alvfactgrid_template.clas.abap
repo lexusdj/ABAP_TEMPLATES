@@ -5,28 +5,31 @@ CLASS zcl_git_alvfactgrid_template DEFINITION
 
   PUBLIC SECTION.
 
-    INTERFACES zif_report_alv_factory_v2.
-    ALIASES: m_alv_obj FOR zif_report_alv_factory_v2~m_alv_fact,
-             on_user_command FOR zif_report_alv_factory_v2~on_added_function.
-    "Define types of screen selection
+    INTERFACES zif_git_report_alv_factory_v2.
+    ALIASES: m_alv_obj FOR zif_git_report_alv_factory_v2~m_alv_fact,
+             on_user_command FOR zif_git_report_alv_factory_v2~on_added_function.
     TYPES:
+      "Define types of screen selection
       BEGIN OF ts_selection,
         sdate TYPE sydate,
 *        .
 *        .
-      END OF ts_selection.
+      END OF ts_selection .
 
-    CLASS-METHODS:
-      get_instance IMPORTING iv_date        TYPE sydate "....
-                   RETURNING
-                             VALUE(ro_temp) TYPE REF TO zcl_git_alvfactgrid_template
-                   RAISING
-                             zcx_bc_exception.
+    CLASS-METHODS get_instance
+      IMPORTING                                           "....
+        !iv_date       TYPE sydate
+      RETURNING
+        VALUE(ro_temp) TYPE REF TO zcl_git_alvfactgrid_template
+      RAISING
+        zcx_bc_exception .
     "instance methods
-    METHODS constructor IMPORTING "params ...
-                                  iv_date TYPE sydate
-                        RAISING   zcx_bc_exception .
-    METHODS run.
+    METHODS constructor             "params ...
+      IMPORTING
+        !iv_date TYPE sydate
+      RAISING
+        zcx_bc_exception .
+    METHODS run .
   PROTECTED SECTION.
     "output definition
     TYPES: BEGIN OF ty_output,
@@ -47,79 +50,12 @@ ENDCLASS.
 
 
 CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
-  METHOD on_user_command. "zif_report_alv_factory_v2~on_added_function.
 
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~on_after_salv_function.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~on_before_salv_function.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~on_end_of_page.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~on_top_of_page.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~on_double_click.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~on_link_click.
-
-  ENDMETHOD.
-
-  METHOD zif_report_alv_factory_v2~get_data_to_display.
-
-  ENDMETHOD.
-
-  METHOD get_instance.
-    ro_temp = NEW zcl_git_alvfactgrid_template(
-        iv_date      = iv_date
-*        iv_time_rg   = iv_time_rg
-*        iv_vbeln     = iv_vbeln
-*        iv_func_name = iv_func_name
-*        iv_user_name =  iv_user_name
-    ).
-  ENDMETHOD.
-
-  METHOD constructor.
-    "fill screeen elements
-    ms_selection-sdate =  iv_date.
-*    ms_selection-func_name = iv_func_name.
-*    ms_selection-st_date = iv_date_rg.
-*    ms_selection-sdate = iv_date.
-*    ms_selection-st_time = iv_time_rg.
-*    ms_selection-user_name = iv_user_name.
-*    ms_selection-vbeln =  iv_vbeln.
-  ENDMETHOD.
-
-  METHOD run.
-    get_data(  ).
-    alv_display( ).
-  ENDMETHOD.
-
-  METHOD get_data.
-    DATA(l_where_cond) = get_where_cond(  ).
-*    SELECT * FROM zzbc_log_ks
-*    UP TO 5 ROWS "to be define
-**    INTO TABLE output_table
-*    INTO TABLE @DATA(lt_data)
-*    WHERE (l_where_cond).
-*    output_table =  CORRESPONDING #( lt_data MAPPING mandt = mandt ).
-    GET REFERENCE OF output_table INTO zif_report_alv_factory_v2~m_output_table.
-  ENDMETHOD.
 
   METHOD alv_display.
     " pass it_table table as import doesn't allow to use as changing on factory call
     FIELD-SYMBOLS <table> TYPE ANY TABLE.
-    ASSIGN zif_report_alv_factory_v2~m_output_table->* TO <table>.
+    ASSIGN zif_git_report_alv_factory_v2~m_output_table->* TO <table>.
     CHECK <table> IS  ASSIGNED.
     TRY.
         cl_salv_table=>factory(
@@ -136,38 +72,39 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
     ENDTRY.
 
     "get events
-    me->zif_report_alv_factory_v2~m_tb_fact_evt = me->m_alv_obj->get_event( ). "table cl_salv_events_table.
-    me->zif_report_alv_factory_v2~m_alv_fact_evt = me->m_alv_obj->get_event( ). "ALV object cl_salv_events.
+    me->zif_git_report_alv_factory_v2~m_tb_fact_evt = me->m_alv_obj->get_event( ). "table cl_salv_events_table.
+    me->zif_git_report_alv_factory_v2~m_alv_fact_evt = me->m_alv_obj->get_event( ). "ALV object cl_salv_events.
     "get selections
-    me->zif_report_alv_factory_v2~m_selections_alv = me->m_alv_obj->get_selections( ).
+    me->zif_git_report_alv_factory_v2~m_selections_alv = me->m_alv_obj->get_selections( ).
     "get functions
-    me->zif_report_alv_factory_v2~m_functions_alv = me->m_alv_obj->get_functions( ).
+    me->zif_git_report_alv_factory_v2~m_functions_alv = me->m_alv_obj->get_functions( ).
     " get sorting
-    me->zif_report_alv_factory_v2~m_sorts_alv = me->m_alv_obj->get_sorts( ).
+    me->zif_git_report_alv_factory_v2~m_sorts_alv = me->m_alv_obj->get_sorts( ).
     "
-    me->zif_report_alv_factory_v2~m_display_alv = me->m_alv_obj->get_display_settings( ).
-    me->zif_report_alv_factory_v2~m_layout_alv = me->m_alv_obj->get_layout( ).
+    me->zif_git_report_alv_factory_v2~m_display_alv = me->m_alv_obj->get_display_settings( ).
+    me->zif_git_report_alv_factory_v2~m_layout_alv = me->m_alv_obj->get_layout( ).
 
     "EVENTS to register!
-    SET HANDLER me->zif_report_alv_factory_v2~on_added_function  "on user command
-               FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_added_function  "on user command
+               FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
 
-    SET HANDLER me->zif_report_alv_factory_v2~on_after_salv_function
-               FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
-    SET HANDLER me->zif_report_alv_factory_v2~on_before_salv_function
-              FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
-    SET HANDLER me->zif_report_alv_factory_v2~on_end_of_page
-              FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
-    SET HANDLER me->zif_report_alv_factory_v2~on_top_of_page
-              FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
-    SET HANDLER me->zif_report_alv_factory_v2~on_double_click
-              FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
-    SET HANDLER me->zif_report_alv_factory_v2~on_link_click
-              FOR me->zif_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_after_salv_function
+               FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_before_salv_function
+              FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_end_of_page
+              FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_top_of_page
+              FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_double_click
+              FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
+    SET HANDLER me->zif_git_report_alv_factory_v2~on_link_click
+              FOR me->zif_git_report_alv_factory_v2~m_tb_fact_evt.
 
     alv_settings( ).
     me->m_alv_obj->display( ).
   ENDMETHOD.
+
 
   METHOD alv_settings.
     " work on columns settings
@@ -233,6 +170,42 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 
+
+  METHOD constructor.
+    "fill screeen elements
+    ms_selection-sdate =  iv_date.
+*    ms_selection-func_name = iv_func_name.
+*    ms_selection-st_date = iv_date_rg.
+*    ms_selection-sdate = iv_date.
+*    ms_selection-st_time = iv_time_rg.
+*    ms_selection-user_name = iv_user_name.
+*    ms_selection-vbeln =  iv_vbeln.
+  ENDMETHOD.
+
+
+  METHOD get_data.
+    DATA(l_where_cond) = get_where_cond(  ).
+*    SELECT * FROM zzbc_log_ks
+*    UP TO 5 ROWS "to be define
+**    INTO TABLE output_table
+*    INTO TABLE @DATA(lt_data)
+*    WHERE (l_where_cond).
+*    output_table =  CORRESPONDING #( lt_data MAPPING mandt = mandt ).
+    GET REFERENCE OF output_table INTO zif_git_report_alv_factory_v2~m_output_table.
+  ENDMETHOD.
+
+
+  METHOD get_instance.
+    ro_temp = NEW zcl_git_alvfactgrid_template(
+        iv_date      = iv_date
+*        iv_time_rg   = iv_time_rg
+*        iv_vbeln     = iv_vbeln
+*        iv_func_name = iv_func_name
+*        iv_user_name =  iv_user_name
+    ).
+  ENDMETHOD.
+
+
   METHOD get_where_cond.
     DATA: lt_field_ranges  TYPE rsds_trange,
           ls_field_ranges  LIKE LINE OF lt_field_ranges,
@@ -273,6 +246,43 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
 *    IF lt_where_clauses[] IS NOT INITIAL.
 *      rt_where_tab = lt_where_clauses[ 1 ]-where_tab.
 *    ENDIF.
+  ENDMETHOD.
+
+
+  METHOD run.
+    get_data(  ).
+    alv_display( ).
+  ENDMETHOD.
+  METHOD zif_git_report_alv_factory_v2~on_added_function.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~on_after_salv_function.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~on_before_salv_function.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~on_end_of_page.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~on_top_of_page.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~on_double_click.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~on_link_click.
+
+  ENDMETHOD.
+
+  METHOD zif_git_report_alv_factory_v2~get_data_to_display.
+
   ENDMETHOD.
 
 ENDCLASS.
