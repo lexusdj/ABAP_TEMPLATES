@@ -2,7 +2,7 @@ interface ZIF_GIT_REPORT_ALV_FACTORY
   public .
 
 
-  interfaces ZIF_REPORT .
+  interfaces ZIF_GIT_REPORT .
 
 *  interfaces ZIF_REPORT .
   data M_ALV_FACT type ref to CL_SALV_TABLE .

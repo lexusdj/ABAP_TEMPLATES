@@ -49,7 +49,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
+CLASS ZCL_GIT_ALVFACTGRID_TEMPLATE IMPLEMENTATION.
 
 
   METHOD alv_display.
@@ -107,10 +107,14 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
 
 
   METHOD alv_settings.
+
     " work on columns settings
     DATA lr_column  TYPE REF TO cl_salv_column_table.
-    DATA(gr_columns) = me->m_alv_obj->get_columns( ).
+    DATA gr_columns TYPE REF TO cl_salv_columns_table.
+
     TRY.
+
+        gr_columns = me->m_alv_obj->get_columns( ).
         gr_columns->set_optimize( if_salv_c_bool_sap=>true ).
 
         "hide columns MAMDT, ....
@@ -184,7 +188,8 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
 
 
   METHOD get_data.
-    DATA(l_where_cond) = get_where_cond(  ).
+    DATA l_where_cond TYPE rsds_where_tab.
+    l_where_cond = get_where_cond(  ).
 *    SELECT * FROM zzbc_log_ks
 *    UP TO 5 ROWS "to be define
 **    INTO TABLE output_table
@@ -196,13 +201,11 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
 
 
   METHOD get_instance.
-    ro_temp = NEW zcl_git_alvfactgrid_template(
-        iv_date      = iv_date
-*        iv_time_rg   = iv_time_rg
-*        iv_vbeln     = iv_vbeln
-*        iv_func_name = iv_func_name
-*        iv_user_name =  iv_user_name
-    ).
+*    DATA ro_temp TYPE REF TO zcl_git_alvfactgrid_template.
+    CREATE OBJECT ro_temp
+      EXPORTING
+        iv_date = iv_date.
+*      CATCH zcx_bc_exception.    " Generic exception
   ENDMETHOD.
 
 
@@ -210,12 +213,17 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
     DATA: lt_field_ranges  TYPE rsds_trange,
           ls_field_ranges  LIKE LINE OF lt_field_ranges,
           ls_range         TYPE rsds_frange,
-          lt_where_clauses TYPE rsds_twhere.
+          lt_where_clauses TYPE rsds_twhere,
+          lr_s TYPE rsdsselopt.
+
     "when parameter
     IF ms_selection-sdate IS NOT INITIAL.
       ls_range-fieldname = 'PDATE'.
 *      APPEND VALUE #( sign = 'I' option = 'EQ' low = ms_selection-sdate ) TO ls_range-selopt_t.
-      ls_range-selopt_t =  VALUE #( ( sign = 'I' option = 'EQ' low = ms_selection-sdate ) ).
+      CLEAR lr_s.
+      lr_s-sign = 'I'. lr_s-option = 'EQ'. lr_s-low = ms_selection-sdate.
+      APPEND lr_s  TO ls_range-selopt_t.
+*      ls_range-selopt_t =  VALUE #( ( sign = 'I' option = 'EQ' low = ms_selection-sdate ) ).
       APPEND ls_range TO ls_field_ranges-frange_t.
     ENDIF.
     "when select option
@@ -253,36 +261,44 @@ CLASS zcl_git_alvfactgrid_template IMPLEMENTATION.
     get_data(  ).
     alv_display( ).
   ENDMETHOD.
-  METHOD zif_git_report_alv_factory_v2~on_added_function.
 
-  ENDMETHOD.
-
-  METHOD zif_git_report_alv_factory_v2~on_after_salv_function.
-
-  ENDMETHOD.
-
-  METHOD zif_git_report_alv_factory_v2~on_before_salv_function.
-
-  ENDMETHOD.
-
-  METHOD zif_git_report_alv_factory_v2~on_end_of_page.
-
-  ENDMETHOD.
-
-  METHOD zif_git_report_alv_factory_v2~on_top_of_page.
-
-  ENDMETHOD.
-
-  METHOD zif_git_report_alv_factory_v2~on_double_click.
-
-  ENDMETHOD.
-
-  METHOD zif_git_report_alv_factory_v2~on_link_click.
-
-  ENDMETHOD.
 
   METHOD zif_git_report_alv_factory_v2~get_data_to_display.
 
   ENDMETHOD.
 
+
+  METHOD zif_git_report_alv_factory_v2~on_added_function.
+
+  ENDMETHOD.
+
+
+  METHOD zif_git_report_alv_factory_v2~on_after_salv_function.
+
+  ENDMETHOD.
+
+
+  METHOD zif_git_report_alv_factory_v2~on_before_salv_function.
+
+  ENDMETHOD.
+
+
+  METHOD zif_git_report_alv_factory_v2~on_double_click.
+
+  ENDMETHOD.
+
+
+  METHOD zif_git_report_alv_factory_v2~on_end_of_page.
+
+  ENDMETHOD.
+
+
+  METHOD zif_git_report_alv_factory_v2~on_link_click.
+
+  ENDMETHOD.
+
+
+  METHOD zif_git_report_alv_factory_v2~on_top_of_page.
+
+  ENDMETHOD.
 ENDCLASS.
